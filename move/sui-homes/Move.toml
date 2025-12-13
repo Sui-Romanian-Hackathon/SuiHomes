@@ -1,0 +1,10 @@
+[package]
+name = "sui-homes"
+version = "0.0.1"
+edition = "2025.beta"
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet" }
+
+[addresses]
+sui_homes = "0x0"
