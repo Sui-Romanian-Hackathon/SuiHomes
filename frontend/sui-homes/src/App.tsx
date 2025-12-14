@@ -1,38 +1,27 @@
-import { ConnectButton } from "@mysten/dapp-kit";
-import { Box, Container, Flex, Heading } from "@radix-ui/themes";
-import { WalletStatus } from "./WalletStatus";
+"use client";
+
+import { ConnectButton, useCurrentAccount } from "@mysten/dapp-kit";
+import { Box,  Container, Flex, Heading } from "@radix-ui/themes";
+import { MyTopNav } from "./components/navbar";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TreasuryPage from './pages/Treasury';
+import AnnouncementsPage from './pages/Anouncements';
+import HomePage from './pages/Home';
+import ProposalsPage from './pages/Proposals';
+
 
 function App() {
-  return (
-    <>
-      <Flex
-        position="sticky"
-        px="4"
-        py="2"
-        justify="between"
-        style={{
-          borderBottom: "1px solid var(--gray-a2)",
-        }}
-      >
-        <Box>
-          <Heading>dApp Starter Template</Heading>
-        </Box>
-
-        <Box>
-          <ConnectButton />
-        </Box>
-      </Flex>
-      <Container>
-        <Container
-          mt="5"
-          pt="2"
-          px="4"
-          style={{ background: "var(--gray-a2)", minHeight: 500 }}
-        >
-          <WalletStatus />
-        </Container>
-      </Container>
-    </>
+    return (
+    <Router>
+      <MyTopNav />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/treasury" element={<TreasuryPage />} />
+        <Route path="/announcements" element={<AnnouncementsPage />} />
+        <Route path="/proposals" element={<ProposalsPage />} />
+      </Routes>
+    </Router>
   );
 }
 

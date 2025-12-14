@@ -10,12 +10,15 @@ use sui_homes::board::Board;
 use sui_homes::registry::Registry;
 use sui_homes::treasury::Treasury;
 
+use std::string::String;
+
 public struct Building has key, store {
     id: UID,
     registry: Registry,
     board: Board,
     treasury: Treasury,
     apartments: ObjectTable<ID, Apartment>,
+    street: String,
 }
 
 /// Initializes a new Building object with associated Registry, Board, and Treasury.
@@ -25,6 +28,7 @@ public fun create_building(
     board: Board,
     treasury: Treasury,
     apartments: ObjectTable<ID, Apartment>,
+    street: String,
 ): Building {
     let building = Building {
         id: object::new(ctx),
@@ -32,6 +36,7 @@ public fun create_building(
         board,
         treasury,
         apartments,
+        street,
     };
     building
 }
@@ -77,3 +82,10 @@ public fun remove_apartment(building: &mut Building, apartment_id: ID) {
 public fun is_apartment_eligible_to_vote(apartment: &Apartment): bool {
     apartment.are_fees_paid()
 }
+
+
+public fun get_appartment(building: &Building, apartment_id: ID): &Apartment {
+    let apartment = &building.apartments[apartment_id];
+    apartment
+}
+
